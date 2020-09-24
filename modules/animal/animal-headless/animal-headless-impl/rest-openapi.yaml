@@ -1,0 +1,132 @@
+components:
+    schemas:
+      Animal:
+        description: Contains information about an animal
+        properties:
+          id:
+            description: The primary key for the Office entity.
+            type: integer
+            format: int64
+            readOnly: true
+          name:
+            description: Animal name.
+            type: string
+          animalClass:
+            description: Animal class (dog, cat, fish, etc.)
+            type: string
+          numberOfLegs:
+            description: Number of legs.
+            type: integer
+        required: 
+          - name
+          - animalClass
+          - numberOfLegs
+        type: object
+openapi: 3.0.1
+info:
+  description: "API for accessing Animal details."
+  license:
+        name: "Apache 2.0"
+        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+  title: "Headless Animal"
+  version: v1.0
+paths:
+  "/animals":
+    post:
+      operationId: postAnimal
+      tags: ["Animal"]
+      description: Create a new animal entity.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Animal"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Animal"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Animal"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Animal"
+    get:
+      operationId: getAnimalsPage
+      tags: ["Animal"]
+      description: Retrieve the list of animals. Results can be paginated, filtered, searched and sorted.
+      parameters:
+        - in: query
+          name: filter
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+        - in: query
+          name: search
+          schema:
+            type: string
+        - in: query
+          name: sort
+          schema:
+            type: string
+      responses:
+        200:
+          description: "test"
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Animal"
+                type: array
+            application/xml:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Animal"
+                type: array
+  "/animals/{animalId}":
+    get:
+      operationId: getAnimal
+      tags: ["Animal"]
+      description: Retrieves the animal via its ID
+      parameters: 
+        - name: animalId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Animal"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Animal"   
+    delete:
+      operationId: deleteAnimal
+      tags: ["Animal"]
+      description: Deletes the target animal entity.
+      parameters: 
+        - name: animalId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: ""
+          content:
+            application/json: {} 
+            application/xml: {} 

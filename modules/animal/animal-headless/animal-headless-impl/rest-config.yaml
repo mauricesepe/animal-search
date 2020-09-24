@@ -1,0 +1,7 @@
+apiDir: "../animal-headless-api/src/main/java"
+apiPackagePath: "com.liferay.headless.animal"
+application:
+  baseURI: "/animal-headless"
+  className: "AnimalHeadlessApplication"
+  name: "com.liferay.headless.animal"
+author: "Maurice Sepe"
